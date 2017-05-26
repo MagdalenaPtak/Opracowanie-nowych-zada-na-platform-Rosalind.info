@@ -9,7 +9,7 @@ def solve(input):
     
     :param input:   DNA sequence
     :type input:    string
-    :return:        Json string containing values of codons.
+    :return:        JSON string containing values of codons.
     """
     rna = input.replace("T", "U")
     solution = {
