@@ -14,7 +14,7 @@ def count_pseudoknot(opening, ending, seq):
 def solve(input):
     """
     Function checks given input string in dot-bracket notation for highest level of pseudoknot complexity
-     and highest level of junction.
+    and highest level of junction.
     
     :param input:   Dot-bracket notation string
     :type input:    string
