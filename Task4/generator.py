@@ -117,5 +117,3 @@ def generator():
     predicted = "".join(predicted)
 
     return json.dumps([correct, predicted])
-
-print(generator())

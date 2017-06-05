@@ -56,5 +56,3 @@ def solver(input):
                 stops[key].append(triplet)
 
     return json.dumps(stops)
-
-print(solver("UGUCUGAGUAACUUGUCGGUCGUAUACAGUGGUAUUGUGCGGAAACAACCGUAGGGAGGUGUUACUGCUGGGAACAGCCUUUCGUUCGCCAGGCAAUAC"))

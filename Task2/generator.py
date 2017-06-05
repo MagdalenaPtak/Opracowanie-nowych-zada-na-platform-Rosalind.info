@@ -10,5 +10,3 @@ def generate():
     :rtype:     string
     """
     return "".join(random.choice("UGAC") for _ in range(99))
-
-print(generate())
