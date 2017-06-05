@@ -16,6 +16,13 @@ def solve(input):
     Function checks given input string in dot-bracket notation for highest level of pseudoknot complexity
     and highest level of junction.
     
+    Example input:
+    "(....((()...().......()....()...().......)).)Aa(....()...()....().......()....()........()...().......))...)
+     (()...()......()........()....().....()......()..){..}<...>[...](..)((....))"
+     Example output:
+     '{"junction_type": 8, "junction_count": 2, "pseudoknot_complexity": "Aa", "pseudoknot_count": 1}'
+     
+    
     :param input:   Dot-bracket notation string
     :type input:    basestring
     :return:        JSON string, example: {"junction_type": 4, "junction_count": 1, 
