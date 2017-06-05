@@ -1,104 +1,99 @@
+import re
 import json
 
 
-def calculate_prediction(correct, total):
-    if total:
-        return "%.2f%%" % ((correct / total) * 100)
-    else:
-        return "100%"
+def count_pseudoknot(opening, ending, seq):
+    count = 0
+    if opening in seq and ending in seq:
+        pseudoknot_opening_count = seq.count(opening)
+        pseudoknot_ending_count = seq.count(ending)
+        count = int((pseudoknot_opening_count + pseudoknot_ending_count) / 2)
+    return count
 
 
 def solve(input):
     """
-    Function compares given input tuple of dot-bracket strings for correct prediction rate.
-    For input:
-    ["(.....(<.>A...a(..().......()........()........()..)(....([](((....)))(...(((((.....)))){...}(...(", 
-     "(.....(<.>A...a(..().......()........()........()..)(....([](((....)))(...(((((.....)))){...}(...("]
-    Example output:
-    {"(": "100.00%", ")": "100.00%", ".": "100.00%", "pseudoknot": "100.00%"}
+    Function checks given input string in dot-bracket notation for highest level of pseudoknot complexity
+    and highest level of junction.
     
-    For input:
-    ["(.....().()......().....)(..((..({}[..]).....)((....)))...)(.....()..()..().......().....().....()......)(.....()...().......().....().))..))....)", 
-     "(.....().()....(.().-.-.)(..((..({}[..]).....)((....)))...)(.....()..()..().......((.....().)....)......)(.....()...().......().....-).))..))....)"]
-    Example Output:
-    {"(": "90.91%", ")": "96.15%", ".": "95.74%", "pseudoknot": "100.00%"}
-    
-    :param input:       JSON list containing correct dot-bracket string and predicted dot-bracket string
-    :rtype input:       string
-    :return:            JSON string containing prediction rates
-    :rtype:             string
+    :param input:   Dot-bracket notation string
+    :type input:    string
+    :return:        JSON string, example: {"junction_type": 4, "junction_count": 1, "pseudoknot_complexity": "Aa", "pseudoknot_count": 1}
+    :rtype:         string
     """
-    input = json.loads(input)
-    correct_structure = input[0]
-    predicted_structure = input[1]
-
-    predicted_positions = {
-        "(": {
-                "total": 0,
-                "correct": 0
-             },
-        ")": {
-                "total": 0,
-                "correct": 0
-             },
-        ".": {
-                "total": 0,
-                "correct": 0
-             },
-        "pseudoknot": {
-                         "total": 0,
-                         "correct": 0
-                      },
+    n_junction = 0
+    junction_limit = 50
+    seq_counter_dict = {
+        "hairpin": 0,
+        "bulge": 0,
+        "inner-loop": 0
     }
-
-    predicted_index = 0
-    correct_index = 0
-    while predicted_index != len(predicted_structure) and correct_index != len(correct_structure):
-
-        predicted_element = predicted_structure[predicted_index]
-        correct_element = correct_structure[correct_index]
-        while predicted_element == "-" and len(predicted_structure) != len(correct_structure):
-            predicted_index += 1
-            predicted_element = predicted_structure[predicted_index]
-
-        while correct_element == "-" and len(predicted_structure) != len(correct_structure):
-            correct_index += 1
-            correct_element = correct_structure[correct_index]
-
-        if correct_element == "(":
-            if correct_element == predicted_element:
-                predicted_positions["("]["total"] += 1
-                predicted_positions["("]["correct"] += 1
-            else:
-                predicted_positions["("]["total"] += 1
-        elif correct_element == ")":
-            if correct_element == predicted_element:
-                predicted_positions[")"]["total"] += 1
-                predicted_positions[")"]["correct"] += 1
-            else:
-                predicted_positions[")"]["total"] += 1
-        elif correct_element == ".":
-            if correct_element == predicted_element:
-                predicted_positions["."]["total"] += 1
-                predicted_positions["."]["correct"] += 1
-            else:
-                predicted_positions["."]["total"] += 1
-        else:
-            if correct_element == predicted_element:
-                predicted_positions["pseudoknot"]["total"] += 1
-                predicted_positions["pseudoknot"]["correct"] += 1
-            else:
-                predicted_positions["pseudoknot"]["total"] += 1
-        predicted_index += 1
-        correct_index += 1
 
     solution = {
-        "(": calculate_prediction(predicted_positions["("]["correct"], predicted_positions["("]["total"]),
-        ")": calculate_prediction(predicted_positions[")"]["correct"], predicted_positions[")"]["total"]),
-        ".": calculate_prediction(predicted_positions["."]["correct"], predicted_positions["."]["total"]),
-        "pseudoknot": calculate_prediction(predicted_positions["pseudoknot"]["correct"],
-                                           predicted_positions["pseudoknot"]["total"]),
+        "junction_type": None,
+        "junction_count": 0,
+        "pseudoknot_complexity": None,
+        "pseudoknot_count": 0
     }
 
-    return json.dumps(solution)
+    max_junction = None
+    temp_seq = ""
+    for s in input:
+        if s == "(" or s == ")" or s == ".":
+            temp_seq += s
+    hairpin_pattern = r"(\(\.+\))"
+    bulge_pattern_1 = r"(\(\.+\()"
+    bulge_pattern_2 = r"(\)\.+\))"
+    inner_loop_pattern = r"(\(\.+\(+\)+\.+\))"
+    match = re.findall(hairpin_pattern, temp_seq)
+    if match:
+        seq_counter_dict["hairpin"] = len(match)
+    match = re.findall(bulge_pattern_1, temp_seq)
+    if match:
+        seq_counter_dict["bulge"] += len(match)
+    match = re.findall(bulge_pattern_2, temp_seq)
+    if match:
+        seq_counter_dict["bulge"] += len(match)
+    match = re.findall(inner_loop_pattern, temp_seq)
+    if match:
+        seq_counter_dict["inner-loop"] = len(match)
+    junction_pattern_element = "\(+\)+\.*"
+    for junction in range(3, junction_limit):
+        junction_pattern = junction_pattern_element * (junction - 1)
+        junction_pattern = "(\(+\.*" + junction_pattern + "\)+)"
+        match = re.findall(junction_pattern, temp_seq)
+        if match:
+            max_junction = (junction, len(match))
+            if n_junction == junction:
+                seq_counter_dict["%s-junction" % max_junction[0]] = max_junction[1]
 
+    if max_junction and not n_junction:
+        seq_counter_dict["%s-junction" % max_junction[0]] = max_junction[1]
+
+    if max_junction:
+        solution["junction_type"] = max_junction[0]
+        solution["junction_count"] = max_junction[1]
+
+    count = count_pseudoknot("[", "]", input)
+    if count:
+        seq_counter_dict["[] pseudoknot count"] = count
+        seq_counter_dict["Highest pseudoknot complexity"] = "[]"
+    count = count_pseudoknot("{", "}", input)
+    if count:
+        seq_counter_dict["{} pseudoknot count"] = count
+        seq_counter_dict["Highest pseudoknot complexity"] = "{}"
+    count = count_pseudoknot("<", ">", input)
+    if count:
+        seq_counter_dict["<> pseudoknot count"] = count
+        seq_counter_dict["Highest pseudoknot complexity"] = "<>"
+
+    for pseudoknot in range(ord("A"), ord("Z") + 1):
+        count = count_pseudoknot(chr(pseudoknot), chr(pseudoknot + 32), input)
+        if count:
+            seq_counter_dict["%s%s pseudoknot count" % (chr(pseudoknot), chr(pseudoknot + 32))] = count
+            seq_counter_dict["Highest pseudoknot complexity"] = "%s%s" % (chr(pseudoknot), chr(pseudoknot + 32))
+    solution["pseudoknot_complexity"] = seq_counter_dict["Highest pseudoknot complexity"]
+    solution["pseudoknot_count"] = seq_counter_dict["%s pseudoknot count" % seq_counter_dict["Highest pseudoknot complexity"]]
+
+
+    return json.dumps(solution)

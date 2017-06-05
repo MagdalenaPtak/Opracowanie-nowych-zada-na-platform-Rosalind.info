@@ -1,4 +1,5 @@
 import random
+import json
 
 
 def generate_hairpin():
@@ -72,9 +73,17 @@ def randomizer():
 
 def generator():
     """
-    Function returns a random string in dot-bracket notation from all available possible entries or randomly generated.
+    Function returns a JSON string with list containing correct sequence and predicted sequence in dot-bracket notation.
+    Example output:
+    ["(.....(<.>A...a(..().......()........()........()..)(....([](((....)))(...(((((.....)))){...}(...(", 
+     "(.....(<.>A...a(..().......()........()........()..)(....([](((....)))(...(((((.....)))){...}(...("]
     
-    :return:    Dot-bracket notation string
+    Example output:
+    ["(.....().()......().....)(..((..({}[..]).....)((....)))...)(.....()..()..().......().....().....()......)(.....()...().......().....().))..))....)", 
+     "(.....().()....(.().-.-.)(..((..({}[..]).....)((....)))...)(.....()..()..().......((.....().)....)......)(.....()...().......().....-).))..))....)"]
+
+    :return:    JSON containing list of 2 elements: correct structure in dot-bracket notation and 
+                predicted structure in dot bracket notation
     :rtype:     string
     """
     task_list = [
@@ -85,7 +94,26 @@ def generator():
 
     r = random.randint(0, 100)
     if r > 20:
-        return randomizer()
+        correct = randomizer()
     else:
         element = random.randint(0, len(task_list) - 1)
-        return task_list[element]
+        correct = task_list[element]
+
+    predicted = list(correct)
+    errors = random.randint(0, int(0.1 * len(predicted)))
+    for change in range(errors):
+        position = random.randint(0, len(predicted) - 1)
+        change = random.randint(0, 100)
+        if 25 < change < 50:
+            predicted[position] = "."
+        elif 50 < change < 75:
+            predicted[position] = "("
+        elif 75 < change < 100:
+            predicted[position] = ")"
+        else:
+            predicted[position] = "-"
+    predicted = "".join(predicted)
+
+    return json.dumps([correct, predicted])
+
+print(generator())
