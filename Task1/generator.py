@@ -7,7 +7,7 @@ def generate():
     Example output: TCTTGGGGCTTGTCGATTTTCGCTGGAAAGAGTCTTTTTAAGGGCTATTCCTTAACATAGACCCCGTTGCCTAAGCGAAATGATACAATTGTAAACCAAC
     
     :return:    DNA sequence of 100 elements length
-    :rtype:     string
+    :rtype:     basestring
     """
     return "".join(random.choice("TGAC") for _ in range(100))
 

@@ -75,7 +75,7 @@ def generator():
     Function returns a random string in dot-bracket notation from all available possible entries or randomly generated.
     
     :return:    Dot-bracket notation string
-    :rtype:     string
+    :rtype:     basestring
     """
     task_list = [
         "((((...((())).....((()))..(()).........))))((.{}[][]{}Aa((..))",

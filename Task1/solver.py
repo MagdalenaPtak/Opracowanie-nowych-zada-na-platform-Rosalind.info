@@ -8,8 +8,9 @@ def solve(input):
     Example output: {"UUA": 2, "UUG": 4, "CUU": 4, "CUC": 0, "CUA": 2, "CUG": 1}
     
     :param input:   DNA sequence
-    :type input:    string
+    :type input:    basestring
     :return:        JSON string containing values of codons.
+    :rtype:         basestring
     """
     rna = input.replace("T", "U")
     solution = {

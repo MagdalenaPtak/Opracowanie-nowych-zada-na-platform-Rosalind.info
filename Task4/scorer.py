@@ -7,12 +7,15 @@ def score(input, correct_output, user_output):
 
     :param input:           JSON containing list of 2 elements: correct structure in dot-bracket notation and 
                             predicted structure in dot bracket notation
-    :type input:            string
-    :param correct_output:  Correct JSON string, example: '{"(": "90.91%", ")": "96.15%", ".": "95.74%", "pseudoknot": "100.00%"}'
-    :type correct_output:   string
-    :param user_output:     User JSON string, example: '{"(": "91.91%", ")": "96.15%", ".": "95.00%", "pseudoknot": "100.00%"}'
-    :type user_output:      string
-    :return: 
+    :type input:            basestring
+    :param correct_output:  Correct JSON string, example: '{"(": "90.91%", ")": "96.15%", 
+                                                            ".": "95.74%", "pseudoknot": "100.00%"}'
+    :type correct_output:   basestring
+    :param user_output:     User JSON string, example: '{"(": "91.91%", ")": "96.15%", 
+                                                         ".": "95.00%", "pseudoknot": "100.00%"}'
+    :type user_output:      basestring
+    :return:                Pass/Fail mark
+    :rtype:                 bool
     """
     correct_output = json.loads(correct_output)
     user_output = json.loads(user_output)

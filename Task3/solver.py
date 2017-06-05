@@ -17,9 +17,10 @@ def solve(input):
     and highest level of junction.
     
     :param input:   Dot-bracket notation string
-    :type input:    string
-    :return:        JSON string, example: {"junction_type": 4, "junction_count": 1, "pseudoknot_complexity": "Aa", "pseudoknot_count": 1}
-    :rtype:         string
+    :type input:    basestring
+    :return:        JSON string, example: {"junction_type": 4, "junction_count": 1, 
+                                          "pseudoknot_complexity": "Aa", "pseudoknot_count": 1}
+    :rtype:         basestring
     """
     n_junction = 0
     junction_limit = 50
@@ -93,7 +94,7 @@ def solve(input):
             seq_counter_dict["%s%s pseudoknot count" % (chr(pseudoknot), chr(pseudoknot + 32))] = count
             seq_counter_dict["Highest pseudoknot complexity"] = "%s%s" % (chr(pseudoknot), chr(pseudoknot + 32))
     solution["pseudoknot_complexity"] = seq_counter_dict["Highest pseudoknot complexity"]
-    solution["pseudoknot_count"] = seq_counter_dict["%s pseudoknot count" % seq_counter_dict["Highest pseudoknot complexity"]]
-
+    solution["pseudoknot_count"] = seq_counter_dict["%s pseudoknot count" %
+                                                    seq_counter_dict["Highest pseudoknot complexity"]]
 
     return json.dumps(solution)
