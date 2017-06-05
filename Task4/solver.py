@@ -32,7 +32,13 @@ def solve(input):
     :return:            JSON string containing prediction rates
     :rtype:             basestring
     """
+
+    if not isinstance(input, str):
+        raise TypeError(input)
+
     input = json.loads(input)
+    if not isinstance(input, list):
+        raise TypeError("Incorrect JSON format for input")
     correct_structure = input[0]
     predicted_structure = input[1]
 
@@ -105,4 +111,3 @@ def solve(input):
     }
 
     return json.dumps(solution)
-

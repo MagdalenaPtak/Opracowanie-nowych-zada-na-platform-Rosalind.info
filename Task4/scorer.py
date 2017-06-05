@@ -17,8 +17,14 @@ def score(input, correct_output, user_output):
     :return:                Pass/Fail mark
     :rtype:                 bool
     """
+
     correct_output = json.loads(correct_output)
     user_output = json.loads(user_output)
+
+    if not isinstance(correct_output, dict):
+        raise TypeError("Incorrect JSON format for correct_output")
+    if not isinstance(user_output, dict):
+        raise TypeError("Incorrect JSON format for user_output")
     if len(correct_output.keys()) != len(user_output.keys()):
         return False
     for key in correct_output.keys():

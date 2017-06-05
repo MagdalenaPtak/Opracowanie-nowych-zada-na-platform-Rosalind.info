@@ -29,6 +29,10 @@ def solve(input):
                                           "pseudoknot_complexity": "Aa", "pseudoknot_count": 1}
     :rtype:         basestring
     """
+
+    if not isinstance(input, str):
+        raise TypeError(input)
+
     n_junction = 0
     junction_limit = 50
     seq_counter_dict = {

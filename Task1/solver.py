@@ -12,6 +12,10 @@ def solve(input):
     :return:        JSON string containing values of codons.
     :rtype:         basestring
     """
+
+    if not isinstance(input, str):
+        raise TypeError(input)
+
     rna = input.replace("T", "U")
     solution = {
         "UUA": 0,
