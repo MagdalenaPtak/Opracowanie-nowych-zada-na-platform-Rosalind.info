@@ -43,11 +43,18 @@ def solve(input):
     :param input:   RNS sequence to check
     :return: 
     """
+
+    if not isinstance(input, str) or not input:
+        raise TypeError(input)
+    for element in input:
+        if element not in "UGAC":
+            raise TypeError
+    if len(input) % 3 != 0:
+        raise Exception("Incorrect string length")
+
     stops = {"UAG": [],
              "UAA": [],
              "UGA": []}
-    if len(input) % 3 != 0:
-        raise Exception("Incorrect string length")
 
     for triplet_range in range(0, len(input), 3):
         triplet = input[triplet_range:triplet_range+3]

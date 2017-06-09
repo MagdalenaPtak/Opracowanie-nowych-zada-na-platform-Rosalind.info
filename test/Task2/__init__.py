@@ -1,3 +1,3 @@
 from .generator import *
-
-from .scorer import *
+from .solver import *
+from .scorer import * 
