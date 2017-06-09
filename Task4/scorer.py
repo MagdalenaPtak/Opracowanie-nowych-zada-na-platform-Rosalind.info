@@ -18,9 +18,14 @@ def score(input, correct_output, user_output):
     :rtype:                 bool
     """
 
+    if not (input and correct_output and user_output):
+        raise TypeError
+
+    if not (isinstance(input, str) and isinstance(correct_output, str) and isinstance(user_output, str)):
+        raise TypeError
+
     correct_output = json.loads(correct_output)
     user_output = json.loads(user_output)
-
     if not isinstance(correct_output, dict):
         raise TypeError("Incorrect JSON format for correct_output")
     if not isinstance(user_output, dict):
