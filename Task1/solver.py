@@ -13,8 +13,12 @@ def solve(input):
     :rtype:         basestring
     """
 
-    if not isinstance(input, str):
+    if not isinstance(input, str) or not input:
         raise TypeError(input)
+
+    for element in input:
+        if element not in "TGAC":
+            raise TypeError
 
     rna = input.replace("T", "U")
     solution = {
