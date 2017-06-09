@@ -52,20 +52,24 @@ def solve(input):
     if not isinstance(input, str):
         raise TypeError(input)
 
-    string = "()[]{}<>.-"
-    for char in range(ord("A"), ord("Z") + 1):
-        string += chr(char)
-        string += chr(char + 32)
-
-    for element in input:
-        if element not in string:
-            raise TypeError
-
     input = json.loads(input)
     if not isinstance(input, list):
         raise TypeError("Incorrect JSON format for input")
     correct_structure = input[0]
     predicted_structure = input[1]
+
+    string = "()[]{}<>.-"
+    for char in range(ord("A"), ord("Z") + 1):
+        string += chr(char)
+        string += chr(char + 32)
+
+    for element in correct_structure:
+        if element not in string:
+            raise TypeError
+
+    for element in predicted_structure:
+        if element not in string:
+            raise TypeError
 
     predicted_positions = {
         "(": {
