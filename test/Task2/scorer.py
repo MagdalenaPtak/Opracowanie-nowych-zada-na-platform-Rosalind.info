@@ -20,7 +20,7 @@ def test_task2_scorer_raises_JSONDecodeError_when_recieving_imporper_strings(tas
     import json
     try:
         exception = json.JSONDecodeError
-    except:
+    except AttributeError:
         exception = ValueError
     with pytest.raises(exception):
         task2_scorer(task2_invalid_strings[0], task2_invalid_strings[1], task2_invalid_strings[2])
