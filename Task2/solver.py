@@ -28,7 +28,7 @@ def can_mutate(possible_mutant, mutation_to_check):
     return False
 
 
-def solver(input):
+def solve(input):
     """
     Function checks for possible single element mutations into STOP codons in RNA triplets.
     
