@@ -36,9 +36,9 @@ def solver(input):
     "UGUCUGAGUAACUUGUCGGUCGUAUACAGUGGUAUUGUGCGGAAACAACCGUAGGGAGGUGUUACUGCUGGGAACAGCCUUUCGUUCGCCAGGCAAUAC"
     
     Example output:
-    {"UAG": ["UUG", "UCG", "UAC", "UAG", "UCG", "UAC"], 
+    '{"UAG": ["UUG", "UCG", "UAC", "UAG", "UCG", "UAC"], 
      "UAA": ["UAC", "AAA", "CAA", "UAG", "CAA", "UAC"], 
-     "UGA": ["UGU", "GGA"]}
+     "UGA": ["UGU", "GGA"]}'
     
     :param input:   RNS sequence to check
     :return: 
