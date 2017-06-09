@@ -1,31 +1,31 @@
 import pytest
 
 
-def test_can_import_Task1_generate():
-    from Task1.generator import generate
+def test_can_import_Task2_generate():
+    from Task2.generator import generate
 
 
-def test_generator_can_generate_string_output(generated_output):
-    assert isinstance(generated_output, str)
+def test_task2_generator_can_generate_string_output(task2_generated_output):
+    assert isinstance(task2_generated_output, str)
 
 
-def test_generator_can_generate_proper_DNA_sequence(generated_output, allowed_dna_characters):
-    for element in generated_output:
-        assert element in allowed_dna_characters, element
+def test_task2_generator_can_generate_proper_DNA_sequence(task2_generated_output, allowed_rna_characters):
+    for element in task2_generated_output:
+        assert element in allowed_rna_characters, element
 
 
-def test_generator_can_generate_a_100_element_DNA_sequence(generated_output):
-    assert len(generated_output) == 100, len(generated_output)
+def test_task2_generator_can_generate_a_99_element_DNA_sequence(task2_generated_output):
+    assert len(task2_generated_output) == 99, len(task2_generated_output)
 
 
 #######################################################################################################################
 
 @pytest.fixture()
-def generated_output():
-    from Task1.generator import generate
+def task2_generated_output():
+    from Task2.generator import generate
     return generate()
 
 
 @pytest.fixture()
-def allowed_dna_characters():
-    return "TGAC"
+def allowed_rna_characters():
+    return "UGAC"
