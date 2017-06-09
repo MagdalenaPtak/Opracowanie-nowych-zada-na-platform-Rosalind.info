@@ -18,7 +18,11 @@ def test_scorer_raises_TypeError_when_recieving_empty_strings_as_inputs(scorer):
 
 def test_scorer_raises_JSONDecodeError_when_recieving_imporper_strings(scorer, invalid_strings):
     import json
-    with pytest.raises(json.JSONDecodeError):
+    try:
+        exception = json.JSONDecodeError
+    except:
+        exception = ValueError
+    with pytest.raises(exception):
         scorer(invalid_strings[0], invalid_strings[1], invalid_strings[2])
 
 
