@@ -27,7 +27,7 @@ def test_task2_scorer_raises_JSONDecodeError_when_recieving_imporper_strings(tas
 
 
 def test_task2_scorer_can_accept_JSON_dict_strings(task2_scorer):
-    assert task2_scorer("ACTG", "{}", "{}")
+    assert task2_scorer("ACUG", "{}", "{}")
 
 
 def test_task2_scorer_can_accept_task2_generated_outputs(task2_scorer, task2_generated_output, task2_solution):
