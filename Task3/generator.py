@@ -2,16 +2,42 @@ import random
 
 
 def generate_hairpin():
+    """
+    Function generates a random hairpin element in dot-bracket notation
+    Example output:
+    "(...)"
+    
+    :return:        Hairpin structure in dot-bracket notation
+    :rtype:         basestring
+    """
     r = random.randint(1, 4)
     return "(" * r + "." * random.randint(1, 5) + ")" * r
 
 
 def generate_bulge():
+    """
+    Function generates a random bulge element in dot-bracket notation
+    Example output:
+    "(...("
+
+    :return:        Bulge structure in dot-bracket notation
+    :rtype:         basestring
+    """
     bulge_type = random.randint(0, 100)
     return "(" + "." * random.randint(1, 5) + "(" if bulge_type < 51 else ")" + "." * random.randint(1, 5) + ")"
 
 
 def generate_junction(complexity):
+    """
+    Function generates a random junction element in dot-bracket notation
+    Example output:
+    "(...()....()..().)"
+
+    :param complexity:  Defines the type of junction
+    :type complexity:   int
+    :return:            Junction structure in dot-bracket notation
+    :rtype:             basestring
+    """
     junction = "(" + "." * random.randint(0, 5)
     for i in range(complexity - 1):
         junction += "()" + "." * random.randint(1, 8)
@@ -20,6 +46,16 @@ def generate_junction(complexity):
 
 
 def generate_pseudoknot(complexity):
+    """
+    Function generates a random pseudoknot element in dot-bracket notation
+    Example output:
+    "[...]"
+
+    :param complexity:  Defines the type of pseudoknot
+    :type complexity:   int
+    :return:            Pseudoknot structure in dot-bracket notation
+    :rtype:             basestring
+    """
     if complexity == ord("A") - 3:
         return "[" + "." * random.randint(0, 3) + "]"
     elif complexity == ord("A") - 2:
@@ -31,35 +67,38 @@ def generate_pseudoknot(complexity):
 
 
 def randomizer():
+    """
+    Function generates a random structure in dot-bracket notation.
+    Example output:
+    "(.....(<.>A...a(..().......()........()........()..)(....([](((....)))(...(((((.....)))){...}(...("
+    
+    :return:    Dot-bracket notation string
+    :rtype:     basestring
+    """
     hairpins = random.randint(1, 6)
-    hp = []
+    elements = []
     for hairpin in range(hairpins):
-        hp.append(generate_hairpin())
+        elements.append(generate_hairpin())
 
     bulges = random.randint(1, 6)
-    bd = []
+
     for bulge in range(bulges):
-        bd.append(generate_bulge())
+        elements.append(generate_bulge())
 
     junctions = random.randint(1, 3)
-    ju = []
+
     for i in range(junctions):
         junction = random.randint(3, 8)
-        ju.append(generate_junction(junction))
+        elements.append(generate_junction(junction))
 
     complexity = random.randint(ord("A") - 3, ord("C"))
-    ps = []
+
     for i in range(ord("A") - 3, complexity + 1):
         c = random.randint(1, 1)
         for j in range(0, c):
-            ps.append(generate_pseudoknot(i))
+            elements.append(generate_pseudoknot(i))
 
     gen = ""
-    elements = []
-    elements.extend(hp)
-    elements.extend(bd)
-    elements.extend(ju)
-    elements.extend(ps)
     while True:
         if not elements:
             break
@@ -73,6 +112,8 @@ def randomizer():
 def generator():
     """
     Function returns a random string in dot-bracket notation from all available possible entries or randomly generated.
+    Example output:
+    "(.....(<.>A...a(..().......()........()........()..)(....([](((....)))(...(((((.....)))){...}(...("
     
     :return:    Dot-bracket notation string
     :rtype:     basestring

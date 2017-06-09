@@ -3,6 +3,18 @@ import json
 
 
 def count_pseudoknot(opening, ending, seq):
+    """
+    Function counts number of pseudoknots of a given type in a dot-bracket structure.
+    
+    :param opening:     Character representing opening of a pseudoknot, example: [
+    :type opening:      basestring
+    :param ending:      Character representing ending of a pseudoknot, example: ]
+    :type ending:       basestring
+    :param seq:         Dot-bracket sequence to count pseudoknots in
+    :type seq:          basestring
+    :return:            Number of found pseudoknots of given type
+    :rtype:             int
+    """
     count = 0
     if opening in seq and ending in seq:
         pseudoknot_opening_count = seq.count(opening)

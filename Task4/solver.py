@@ -2,6 +2,22 @@ import json
 
 
 def calculate_prediction(correct, total):
+    """
+    Function calculates prediction rate based on given correct count and total count,
+    
+    :param correct:     Correct count of elements
+    :type correct:      int
+    :param total:       Total count of elements
+    :type total:        int
+    :return:            Correct percentage
+    :rtype:             basestring
+    """
+    if not isinstance(correct, int):
+        raise TypeError(correct)
+
+    if not isinstance(total, int):
+        raise TypeError(total)
+
     if total:
         return "%.2f%%" % ((correct / total) * 100)
     else:
