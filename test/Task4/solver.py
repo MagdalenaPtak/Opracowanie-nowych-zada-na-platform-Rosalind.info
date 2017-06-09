@@ -16,14 +16,15 @@ def test_task4_solver_raises_TypeError_when_recieving_improper_dot_bracket_input
         task4_solver(task4_incorrect_outputs)
 
 
-def test_task4_solver_raises_exception_when_recieving_improper_json_input_string(task4_solver):
+def test_task4_solver_raises_exception_when_recieving_improper_json_input_string(task4_solver,
+                                                                                 task4_solver_invalid_strings):
     import json
     try:
         exception = json.JSONDecodeError
     except:
         exception = ValueError
     with pytest.raises(exception):
-        task4_solver("ABCD")
+        task4_solver(task4_solver_invalid_strings)
 
 
 def test_task4_solver_accepts_proper_list_of_dot_bracket_input_strings(task4_solver):
@@ -83,8 +84,8 @@ def task4_invalid_types(request):
     return request.param
 
 
-@pytest.fixture(params=["Z", "()", "1", "object", "t", "", "AUCD"])
-def task4_invalid_strings(request):
+@pytest.fixture(params=["Z", "()", "object", "t", "", "AUCD"])
+def task4_solver_invalid_strings(request):
     return request.param
 
 

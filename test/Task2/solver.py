@@ -19,6 +19,11 @@ def test_task2_solver_raises_Exception_when_recieving_string_not_divisiable_by_3
             task2_solver(input_tmp)
 
 
+def test_task2_solver_raises_TypeError_when_not_recieving_RNA_string(task1_solver, task2_invalid_strings):
+    with pytest.raises(TypeError):
+        task1_solver(task2_invalid_strings)
+
+
 def test_task2_solver_accepts_proper_RNA_input_string(task2_solver):
     assert task2_solver("AUCGAU")
 

@@ -10,6 +10,11 @@ def test_task3_solver_raises_TypeError_when_not_recieving_string(task3_solver, t
         task3_solver(task3_invalid_types)
 
 
+def test_task3_solver_raises_TypeError_when_not_recieving_dot_bracket_string(task1_solver, task2_invalid_strings):
+    with pytest.raises(TypeError):
+        task1_solver(task2_invalid_strings)
+
+
 def test_task3_solver_raises_TypeError_when_recieving_improper_dot_bracket_input_string(task3_solver):
     with pytest.raises(TypeError):
         task3_solver("(((..*..)))----")
