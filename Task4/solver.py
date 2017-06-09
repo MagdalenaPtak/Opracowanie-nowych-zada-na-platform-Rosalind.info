@@ -52,6 +52,15 @@ def solve(input):
     if not isinstance(input, str):
         raise TypeError(input)
 
+    string = "()[]{}<>.-"
+    for char in range(ord("A"), ord("Z") + 1):
+        string += chr(char)
+        string += chr(char + 32)
+
+    for element in input:
+        if element not in string:
+            raise TypeError
+
     input = json.loads(input)
     if not isinstance(input, list):
         raise TypeError("Incorrect JSON format for input")

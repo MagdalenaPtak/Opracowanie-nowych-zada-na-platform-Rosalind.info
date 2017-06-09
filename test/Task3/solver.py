@@ -10,8 +10,13 @@ def test_task3_solver_raises_TypeError_when_not_recieving_string(task3_solver, t
         task3_solver(task3_invalid_types)
 
 
-def test_task3_solver_accepts_proper_RNA_input_string(task3_solver):
-    assert task3_solver("AUCGAU")
+def test_task3_solver_raises_TypeError_when_recieving_improper_dot_bracket_input_string(task3_solver):
+    with pytest.raises(TypeError):
+        task3_solver("(((..*..)))----")
+
+
+def test_task3_solver_accepts_proper_dot_bracket_input_string(task3_solver):
+    assert task3_solver("(((....)))----")
 
 
 def test_task3_solver_accepts_generated_RNA_input_string(task3_solver, task3_generated_output):

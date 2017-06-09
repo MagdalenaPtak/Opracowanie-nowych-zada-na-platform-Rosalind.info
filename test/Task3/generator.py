@@ -9,7 +9,7 @@ def test_task3_generator_can_generate_string_output(task3_generated_output):
     assert isinstance(task3_generated_output, str)
 
 
-def test_task3_generator_can_generate_proper_DNA_sequence(task3_generated_output, allowed_dot_bracket_characters):
+def test_task3_generator_can_generate_proper_dot_bracket_sequence(task3_generated_output, allowed_dot_bracket_characters):
     for element in task3_generated_output:
         assert element in allowed_dot_bracket_characters, element
 
@@ -24,4 +24,8 @@ def task3_generated_output():
 
 @pytest.fixture()
 def allowed_dot_bracket_characters():
-    return "()[]{}<>.AaBbCc-"
+    string = "()[]{}<>.-"
+    for char in range(ord("A"), ord("Z") + 1):
+        string += chr(char)
+        string += chr(char + 32)
+    return string
