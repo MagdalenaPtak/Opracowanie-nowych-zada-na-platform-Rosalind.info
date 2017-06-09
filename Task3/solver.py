@@ -116,8 +116,8 @@ def solve(input):
         if count:
             seq_counter_dict["%s%s pseudoknot count" % (chr(pseudoknot), chr(pseudoknot + 32))] = count
             seq_counter_dict["Highest pseudoknot complexity"] = "%s%s" % (chr(pseudoknot), chr(pseudoknot + 32))
-    solution["pseudoknot_complexity"] = seq_counter_dict["Highest pseudoknot complexity"]
-    solution["pseudoknot_count"] = seq_counter_dict["%s pseudoknot count" %
-                                                    seq_counter_dict["Highest pseudoknot complexity"]]
+    solution["pseudoknot_complexity"] = seq_counter_dict.get("Highest pseudoknot complexity")
+    solution["pseudoknot_count"] = seq_counter_dict.get("%s pseudoknot count" %
+                                                    seq_counter_dict.get("Highest pseudoknot complexity"), 0)
 
     return json.dumps(solution)
